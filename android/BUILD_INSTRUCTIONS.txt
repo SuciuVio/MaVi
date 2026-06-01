@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Building instructions for MaVi Android App -->
+    <string name="build_instructions_title">Building MaVi APK</string>
+    <string name="build_instructions_steps">
+        1. Open Android Studio
+        2. File → Open → Select android folder
+        3. Wait for Gradle sync to complete
+        4. Build → Generate Signed Bundle/APK
+        5. Select APK option
+        6. Configure signing certificate
+        7. Select Release build variant
+        8. Choose "V2" signing scheme
+        9. Build and export
+    </string>
+</resources>
