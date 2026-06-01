@@ -58,19 +58,20 @@ class CallNotificationManager(private val context: Context) {
 
         val acceptPendingIntent = PendingIntent.getBroadcast(
             context,
-            0,
+            callId.hashCode(),
             acceptIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
         val rejectPendingIntent = PendingIntent.getBroadcast(
             context,
-            1,
+            (callId + "reject").hashCode(),
             rejectIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
         val mainIntent = Intent(context, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
             putExtra("call_id", callId)
             putExtra("caller_name", callerName)
             putExtra("caller_id", callerId)
@@ -79,7 +80,7 @@ class CallNotificationManager(private val context: Context) {
 
         val mainPendingIntent = PendingIntent.getActivity(
             context,
-            2,
+            (callId + "activity").hashCode(),
             mainIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )

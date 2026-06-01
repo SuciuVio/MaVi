@@ -10,14 +10,16 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <!-- Camera & Microphone -->
-    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- Audio Permissions -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
+    <!-- Camera & Microphone (for future features) -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <!-- Call Permissions -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
 
     <application
         android:allowBackup="true"
@@ -42,12 +44,14 @@
         <!-- Call Service -->
         <service
             android:name=".service.CallService"
+            android:enabled="true"
             android:exported="false" />
 
-        <!-- Call Broadcast Receiver -->
+        <!-- Broadcast Receiver for Calls -->
         <receiver
             android:name=".notification.CallReceiver"
-            android:exported="false">
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="ACCEPT_CALL" />
                 <action android:name="REJECT_CALL" />

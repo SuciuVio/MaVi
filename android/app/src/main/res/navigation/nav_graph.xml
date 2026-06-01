@@ -5,68 +5,52 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/loginFragment">
 
-    <!-- Login Fragment -->
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.mavi.ui.fragments.LoginFragment"
-        android:label="@string/login"
+        android:label="Login"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
-            app:destination="@id/registerFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"
-            app:popEnterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/slide_out_right" />
+            app:destination="@id/registerFragment" />
         <action
-            android:id="@+id/action_loginFragment_to_chatListFragment"
-            app:destination="@id/chatListFragment"
-            app:popUpTo="@id/loginFragment"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_loginFragment_toChatListFragment"
+            app:destination="@id/chatListFragment" />
     </fragment>
 
-    <!-- Register Fragment -->
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.mavi.ui.fragments.RegisterFragment"
-        android:label="@string/register"
+        android:label="Register"
         tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:popUpTo="@id/registerFragment"
-            app:popUpToInclusive="true" />
+            app:destination="@id/loginFragment" />
     </fragment>
 
-    <!-- Chat List Fragment -->
     <fragment
         android:id="@+id/chatListFragment"
         android:name="com.mavi.ui.fragments.ChatListFragment"
-        android:label="@string/conversations"
+        android:label="Chats"
         tools:layout="@layout/fragment_chat_list">
         <action
-            android:id="@+id/action_chatListFragment_to_chatDetailFragment"
+            android:id="@+id/action_chatListFragment_toChatDetailFragment"
             app:destination="@id/chatDetailFragment" />
     </fragment>
 
-    <!-- Chat Detail Fragment -->
     <fragment
         android:id="@+id/chatDetailFragment"
         android:name="com.mavi.ui.fragments.ChatDetailFragment"
-        android:label="@string/messages"
+        android:label="Chat"
         tools:layout="@layout/fragment_chat_detail">
         <argument
             android:name="user_id"
-            app:argType="integer" />
+            app:type="integer" />
         <argument
             android:name="username"
-            app:argType="string" />
-        <action
-            android:id="@+id/action_chatDetailFragment_to_callFragment"
-            app:destination="@id/callFragment" />
+            app:type="string" />
     </fragment>
 
-    <!-- Call Fragment -->
     <fragment
         android:id="@+id/callFragment"
         android:name="com.mavi.ui.fragments.CallFragment"
@@ -74,13 +58,13 @@
         tools:layout="@layout/fragment_call">
         <argument
             android:name="call_id"
-            app:argType="string" />
+            app:type="string" />
         <argument
             android:name="caller_name"
-            app:argType="string" />
+            app:type="string" />
         <argument
             android:name="caller_id"
-            app:argType="integer" />
+            app:type="integer" />
     </fragment>
 
 </navigation>

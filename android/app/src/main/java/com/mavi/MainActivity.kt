@@ -1,7 +1,8 @@
 package com.mavi
 
+import android.os.Build
 import android.os.Bundle
-import android.view.View
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -22,7 +23,22 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.toolbar)
+        // Handle incoming call from notification
+        if (intent.getBooleanExtra("open_call_screen", false)) {
+            val callId = intent.getStringExtra("call_id")
+            val callerName = intent.getStringExtra("caller_name")
+            val callerId = intent.getIntExtra("caller_id", 0)
+
+            if (callId != null) {
+                val bundle = Bundle().apply {
+                    putString("call_id", callId)
+                    putString("caller_name", callerName)
+                    putInt("caller_id", callerId)
+                }
+                // Will navigate to call fragment after nav setup
+                intent.putExtra("pending_bundle", bundle)
+            }
+        }
 
         // Setup Navigation
         val navHostFragment = supportFragmentManager
@@ -38,13 +54,28 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        // Handle incoming call from notification
-        intent.extras?.let {
-            if (it.getBoolean("open_call_screen", false)) {
-                val callId = it.getString("call_id") ?: return@let
-                val callerName = it.getString("caller_name") ?: "Unknown"
-                val callerId = it.getInt("caller_id", 0)
+        // Navigate to call if needed
+        val pendingBundle = intent.getParcelableExtra<Bundle>("pending_bundle")
+        if (pendingBundle != null) {
+            navController.navigate(R.id.callFragment, pendingBundle)
+        }
+    }
 
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+
+        // Handle new incoming call
+        if (intent?.getBooleanExtra("open_call_screen", false) == true) {
+            val callId = intent.getStringExtra("call_id")
+            val callerName = intent.getStringExtra("caller_name")
+            val callerId = intent.getIntExtra("caller_id", 0)
+
+            if (callId != null) {
                 val bundle = Bundle().apply {
                     putString("call_id", callId)
                     putString("caller_name", callerName)
@@ -53,9 +84,5 @@ class MainActivity : AppCompatActivity() {
                 navController.navigate(R.id.callFragment, bundle)
             }
         }
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 }
