@@ -10,4 +10,12 @@
     <string name="already_have_account">Already have an account?</string>
     <string name="conversations">Conversations</string>
     <string name="messages">Messages</string>
+    <string name="accept">Accept</string>
+    <string name="reject">Reject</string>
+    <string name="end_call">End Call</string>
+    <string name="mute">Mute</string>
+    <string name="unmute">Unmute</string>
+    <string name="speaker">Speaker</string>
+    <string name="send">Send</string>
+    <string name="ringing">Ringing...</string>
 </resources>

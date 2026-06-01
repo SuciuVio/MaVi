@@ -54,4 +54,9 @@ object ApiClient {
     val authService: AuthService = retrofit.create(AuthService::class.java)
     val chatService: ChatService = retrofit.create(ChatService::class.java)
     val fileService: FileService = retrofit.create(FileService::class.java)
+    val callService: CallService? = try {
+        retrofit.create(CallService::class.java)
+    } catch (e: Exception) {
+        null
+    }
 }

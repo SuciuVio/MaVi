@@ -10,9 +10,14 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <!-- Camera & Microphone (for future features) -->
+    <!-- Camera & Microphone -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+
+    <!-- Call Permissions -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
 
     <application
         android:allowBackup="true"
@@ -33,6 +38,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Call Service -->
+        <service
+            android:name=".service.CallService"
+            android:exported="false" />
+
+        <!-- Call Broadcast Receiver -->
+        <receiver
+            android:name=".notification.CallReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="ACCEPT_CALL" />
+                <action android:name="REJECT_CALL" />
+            </intent-filter>
+        </receiver>
 
     </application>
 
